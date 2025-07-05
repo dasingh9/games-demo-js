@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games Web Portal</title>
+
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        header {
+            text-align: center;
+            background-color: blueviolet;
+            margin: 0px;
+            padding: 30px;
+            color: white;
+        }
+
+        h1 {
+            margin: 0px;
+        }
+
+        .container {
+            width: 1200px;
+            margin: auto;
+        }
+
+        .games-flex-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .card {
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+
+        .card img {
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <h1>Video Games Portal</h1>
+    </header>
+
+    <section class="container">
+        <div id="games-flex-container" class="games-flex-container">
+            <div class="card">
+                <img src="https://www.freetogame.com/g/540/thumbnail.jpg" alt="">
+                <div class="card-body">
+                    <h3>Overwatch 2</h3>
+                    <span>Shooter</span>
+                    <a href="https://www.freetogame.com/open/overwatch-2">Play</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="services/games-service.js"></script>
+    <script src="components/games-container.js"></script>
+
+    <script>
+
+        function showGames(games) {
+            const gamesContainer = new GamesContainer();
+            document.getElementById("games-flex-container").innerHTML = gamesContainer.getGameCards(games);
+        }
+
+        window.onload = async () => {
+
+            //1. get games from server 
+            const gamesService = new GamesService();
+            const games = await gamesService.getGames();
+
+            //2. show games to page
+            showGames(games);
+
+        }
+    </script>
+
+</body>
+
+</html>
