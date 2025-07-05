@@ -1,5 +1,5 @@
 # Video Games Portal
 
-## 🖼️ Home Page Mockup
+## 🎮 Home Page Mockup
 
-![Home Page](./mockups/show-cards-on-home-page.png)
+![Home Page](https://raw.githubusercontent.com/dasingh9/games-demo-js/refs/heads/main/mockups/show-cards-on-home-page.PNG)
