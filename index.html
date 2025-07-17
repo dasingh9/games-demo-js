@@ -13,14 +13,22 @@
 
         header {
             text-align: center;
-            background-color: blueviolet;
+            background: linear-gradient(90deg, #7b2ff2 0%, #f357a8 100%);
             margin: 0px;
-            padding: 30px;
-            color: white;
+            padding: 44px 0 36px 0;
+            color: #fff;
+            box-shadow: 0 2px 16px rgba(123,47,242,0.10);
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+            position: relative;
         }
 
         h1 {
             margin: 0px;
+            font-size: 2.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(80,0,120,0.10);
         }
 
         .container {
@@ -38,11 +46,68 @@
 
         .card {
             width: 300px;
-            border: 1px solid #ccc;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            overflow: hidden;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+        }
+
+        .card:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(80,0,120,0.18);
         }
 
         .card img {
             width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .card-content {
+            padding: 18px 16px 16px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #5a189a;
+            margin: 0;
+        }
+
+        .game-description {
+            font-size: 1rem;
+            color: #555;
+            margin: 0;
+        }
+
+        .play-btn {
+            margin-top: auto;
+            padding: 10px 0;
+            background: linear-gradient(90deg, #7b2ff2 0%, #f357a8 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(123,47,242,0.08);
+            display: block;
+        }
+
+        .play-btn:hover {
+            background: linear-gradient(90deg, #f357a8 0%, #7b2ff2 100%);
         }
     </style>
 
@@ -57,6 +122,16 @@
     <section class="container">
         <div id="games-flex-container" class="games-flex-container">
         </div>
+        <template id="game-card-template">
+            <div class="card">
+                <img src="" alt="Game Image">
+                <div class="card-content">
+                    <h3 class="game-title"></h3>
+                    <p class="game-description"></p>
+                    <a class="play-btn" href="#" target="_blank">Play</a>
+                </div>
+            </div>
+        </template>
     </section>
 
     <script src="services/games-service.js"></script>
@@ -64,9 +139,18 @@
 
     <script>
 
+        function removeChildElements(container) {
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+        }
+
         function showGames(games) {
             const gamesContainer = new GamesContainer();
-            document.getElementById("games-flex-container").innerHTML = gamesContainer.getGameCards(games);
+            const container = document.getElementById("games-flex-container");
+            removeChildElements(container);
+            const cardElements = gamesContainer.getGameCardElements(games);
+            cardElements.forEach(card => container.appendChild(card));
         }
 
         window.onload = async () => {
